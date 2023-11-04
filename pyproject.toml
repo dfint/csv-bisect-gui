@@ -29,3 +29,9 @@ line-length = 120
 
 [tool.isort]
 profile = "black"
+
+[tool.poetry.scripts]
+csv_bisect = "csv_bisect_gui.app:main"
+
+[tool.poe.tasks]
+run.script = "csv_bisect_gui.app:main"
