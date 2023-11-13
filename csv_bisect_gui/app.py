@@ -3,25 +3,27 @@ import tkinter as tk
 from csv_bisect_gui.bisect_tool import BisectTool
 
 
-def create_main_menu():
-    file_menu = tk.Menu(tearoff=False)
-    file_menu.add_command(label="Open")
-    file_menu.add_separator()
-    file_menu.add_command(label="Exit")
+class Window(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.config(menu=self.create_main_menu())
+        
+        bisect_tool = BisectTool(self)
+        bisect_tool.pack(fill=tk.BOTH, expand=True)
 
-    main_menu = tk.Menu()
-    main_menu.add_cascade(label="File", menu=file_menu)
-    return main_menu
+    def create_main_menu(self):
+        file_menu = tk.Menu(tearoff=False)
+        file_menu.add_command(label="Open")
+        file_menu.add_separator()
+        file_menu.add_command(label="Exit", command=self.destroy)
+
+        main_menu = tk.Menu()
+        main_menu.add_cascade(label="File", menu=file_menu)
+        return main_menu
 
 
 def main():
-    root = tk.Tk()
-    root.config(menu=create_main_menu())
-
-    bisect_tool = BisectTool(root)
-    bisect_tool.pack(fill=tk.BOTH, expand=True)
-
-    root.mainloop()
+    Window().mainloop()
 
 
 if __name__ == "__main__":
