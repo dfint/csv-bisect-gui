@@ -14,7 +14,7 @@ class Window(tk.Tk):
 
     def create_main_menu(self):
         file_menu = tk.Menu(tearoff=False)
-        file_menu.add_command(label="Open", command=self.select_directory)
+        file_menu.add_command(label="Open", command=self.select_file)
         file_menu.add_separator()
         file_menu.add_command(label="Exit", command=self.destroy)
 
@@ -22,13 +22,20 @@ class Window(tk.Tk):
         main_menu.add_cascade(label="File", menu=file_menu)
         return main_menu
 
-    def select_directory(self):
-        directory = filedialog.askdirectory(title="Choose DF directory")
+    def select_file(self):
+        directory = filedialog.askopenfilename(
+            title="Select an executable file",
+            filetypes = (
+                ("exe files", "*.exe"),
+                ("dwarfort", "dwarfort"),
+                ("All files", "*.*"),
+            ),
+        )
 
         if not directory:
             return
 
-        messagebox.showinfo(title="Selected directory", message=directory)
+        messagebox.showinfo(title="Selected file", message=directory)
 
 
 def main():
