@@ -55,6 +55,11 @@ class Window(tk.Tk):
         if not file_path:
             return
 
+        self.process_selected_file(Path(file_path))
+
+        messagebox.showinfo(title="Selected file", message=file_path)
+
+    def process_selected_file(self, file_path: Path):
         file_path = Path(file_path)
         if file_path.suffix == ".csv":
             self.executable_path = None
@@ -65,8 +70,6 @@ class Window(tk.Tk):
         else:
             self.executable_path = None
             self.csv_path = None
-
-        messagebox.showinfo(title="Selected file", message=file_path)
 
 
 def main():
