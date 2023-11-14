@@ -12,6 +12,8 @@ updates:
           - "black"
           - "isort"
           - "hypothesis"
+          - "ruff"
+          - "refurb"
 
   - package-ecosystem: "github-actions"
     directory: "/"
