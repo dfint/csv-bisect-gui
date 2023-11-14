@@ -24,10 +24,11 @@ class Window(tk.Tk):
 
     def select_file(self):
         directory = filedialog.askopenfilename(
-            title="Select an executable file",
+            title="Select an executable or a csv file",
             filetypes = (
                 ("exe files", "*.exe"),
                 ("dwarfort", "dwarfort"),
+                ("csv files", "*.csv"),
                 ("All files", "*.*"),
             ),
         )
