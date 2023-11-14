@@ -24,10 +24,11 @@ class Window(tk.Tk):
         self.bisect_tool = BisectTool(self)
         self.bisect_tool.pack(fill=tk.BOTH, expand=True)
 
-        self.init_file_types()
+        self.file_types = self.init_file_types()
 
-    def init_file_types(self):
-        self.file_types = [
+    @staticmethod
+    def init_file_types():
+        file_types = [
             ("exe files", "*.exe"),
             ("dwarfort", "dwarfort"),
             ("csv files", "*.csv"),
@@ -35,7 +36,9 @@ class Window(tk.Tk):
         ]
 
         if is_windows:
-            self.file_types.remove(("dwarfort", "dwarfort"))
+            file_types.remove(("dwarfort", "dwarfort"))
+        
+        return file_types
 
     def create_main_menu(self):
         file_menu = tk.Menu(tearoff=False)
