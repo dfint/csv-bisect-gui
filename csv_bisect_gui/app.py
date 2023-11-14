@@ -1,3 +1,4 @@
+import csv
 import platform
 import tkinter as tk
 from pathlib import Path
@@ -57,8 +58,6 @@ class Window(tk.Tk):
 
         self.process_selected_file(Path(file_path))
 
-        messagebox.showinfo(title="Selected file", message=file_path)
-
     def process_selected_file(self, file_path: Path):
         file_path = Path(file_path)
         if file_path.suffix == ".csv":
@@ -70,6 +69,18 @@ class Window(tk.Tk):
         else:
             self.executable_path = None
             self.csv_path = None
+
+        if self.csv_path and self.csv_path.is_file:
+            self.load_csv(self.csv_path)
+
+    def load_csv(self, csv_path: Path):
+        # TODO: Add encoding selection
+        with open(csv_path, "r", encoding="cp437", newline="") as csv_file:
+            csv_reader = csv.reader(csv_file)
+            self.bisect_tool.strings = list(csv_reader)
+
+    def backup_csv(self):
+        pass  # TODO
 
 
 def main():
