@@ -23,7 +23,7 @@ class Window(tk.Tk):
         return main_menu
 
     def select_file(self):
-        directory = filedialog.askopenfilename(
+        file_path = filedialog.askopenfilename(
             title="Select an executable or a csv file",
             filetypes = (
                 ("exe files", "*.exe"),
@@ -33,10 +33,10 @@ class Window(tk.Tk):
             ),
         )
 
-        if not directory:
+        if not file_path:
             return
 
-        messagebox.showinfo(title="Selected file", message=directory)
+        messagebox.showinfo(title="Selected file", message=file_path)
 
 
 def main():
