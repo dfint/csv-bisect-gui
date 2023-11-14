@@ -17,8 +17,8 @@ class Window(tk.Tk):
     executable_path: Path | None
     csv_path: Path | None
 
-    def __init__(self):
-        super().__init__()
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
         self.config(menu=self.create_main_menu())
 
         self.bisect_tool = BisectTool(self)
