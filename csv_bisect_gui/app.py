@@ -86,5 +86,9 @@ class Window(tk.Tk):
         pass  # TODO
 
 
-if __name__ == "__main__":
+def main():
     Window().mainloop()
+
+
+if __name__ == "__main__":
+    main()
