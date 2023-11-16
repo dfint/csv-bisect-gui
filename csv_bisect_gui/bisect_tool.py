@@ -16,7 +16,7 @@ class Node:
     start: int
     end: int
 
-    def __init__(self, items: list, start: int = 0, end: int = None):
+    def __init__(self, items: list, start: int = 0, end: int | None = None):
         self._all_items = items
         self.start = start
 
