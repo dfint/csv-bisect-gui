@@ -5,7 +5,11 @@ import tkinter.ttk as ttk
 from pathlib import Path
 from tkinter import filedialog
 
+import viscii_codec
+
 from csv_bisect_gui.bisect_tool import BisectTool
+
+viscii_codec.register()
 
 is_windows = platform.system() == "Windows"
 
