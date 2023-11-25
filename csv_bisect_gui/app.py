@@ -1,8 +1,9 @@
 import csv
 import platform
 import tkinter as tk
+import tkinter.ttk as ttk
 from pathlib import Path
-from tkinter import filedialog, messagebox
+from tkinter import filedialog
 
 from csv_bisect_gui.bisect_tool import BisectTool
 
@@ -21,10 +22,27 @@ class Window(tk.Tk):
         super().__init__(*args, **kwargs)
         self.config(menu=self.create_main_menu())
 
+        self.combo_encodings = self.init_combo_encodings()
+
         self.bisect_tool = BisectTool(self)
         self.bisect_tool.pack(fill=tk.BOTH, expand=True)
 
         self.file_types = self.init_file_types()
+
+    def init_combo_encodings(self):
+        frame = tk.Frame(self)
+
+        label = tk.Label(frame, text="csv encoding:")
+        label.pack(side=tk.LEFT)
+
+        combo_encodings = ttk.Combobox(frame)
+        encodings = ["cp437", "cp1251", "cp850", "cp852", "cp857", "latin3", "latin9", "viscii", "utf-8"]
+        combo_encodings.config(values=encodings)
+        combo_encodings.pack(fill=tk.X, expand=True)
+
+        frame.pack(fill=tk.X)
+
+        return combo_encodings
 
     @staticmethod
     def init_file_types():
@@ -37,7 +55,7 @@ class Window(tk.Tk):
 
         if is_windows:
             file_types.remove(("dwarfort", "dwarfort"))
-        
+
         return file_types
 
     def create_main_menu(self):
