@@ -40,10 +40,12 @@ class Window(tk.Tk):
         label = tk.Label(frame, text="csv encoding:")
         label.pack(side=tk.LEFT)
 
-        combo_encodings = ttk.Combobox(frame)
+        combo_encodings = ttk.Combobox(frame, state="readonly")
         encodings = ["cp437", "cp1251", "cp850", "cp852", "cp857", "latin3", "latin9", "viscii", "utf-8"]
         combo_encodings.config(values=encodings)
         combo_encodings.pack(fill=tk.X, expand=True)
+        combo_encodings.set(encodings[0])
+        combo_encodings.bind("<<ComboboxSelected>>", lambda _: self.load_csv())
 
         frame.pack(fill=tk.X)
 
@@ -97,11 +99,14 @@ class Window(tk.Tk):
             self.csv_path = None
 
         if self.csv_path and self.csv_path.is_file:
-            self.load_csv(self.csv_path)
+            self.load_csv()
 
-    def load_csv(self, csv_path: Path):
-        # TODO: Add encoding selection
-        with open(csv_path, "r", encoding="cp437", newline="") as csv_file:
+    def load_csv(self):
+        if not self.csv_path:
+            return
+
+        encoding = self.combo_encodings.get()
+        with open(self.csv_path, "r", encoding=encoding, newline="") as csv_file:
             csv_reader = csv.reader(csv_file)
             self.bisect_tool.strings = list(csv_reader)
 
