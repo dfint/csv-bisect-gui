@@ -114,7 +114,7 @@ class Window(tk.Tk):
 
         encoding = self.combo_encodings.get()
         try:
-            decoded = [item.strip().decode(encoding) for item in self.raw_data]
+            decoded = [item.rstrip(b"\r\n").decode(encoding) for item in self.raw_data]
             self.bisect_tool.strings = decoded
         except UnicodeDecodeError:
             messagebox.showerror("ERROR", f"Failed to decode using {encoding} encoding")
