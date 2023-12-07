@@ -15,13 +15,13 @@ def test_node(data):
         assert node.column_text == "<empty>"
     elif len(data) == 1:
         assert node.tree_text == f"[{node.start} : {node.end}] ({node.end - node.start + 1} string)"
-        assert node.column_text == f"{data[0]!r}"
+        assert node.column_text == str(data[0])
     elif len(data) == 2:
         assert node.tree_text == f"[{node.start} : {node.end}] ({node.end - node.start + 1} strings)"
-        assert node.column_text == ",".join(map(repr, data))
+        assert node.column_text == ",".join(map(str, data))
     else:
         assert node.tree_text == f"[{node.start} : {node.end}] ({node.end - node.start + 1} strings)"
-        assert node.column_text == f"{data[node.start]!r} ... {data[node.end]!r}"
+        assert node.column_text == f"{data[node.start]} ... {data[node.end]}"
 
 
 @given(st.lists(st.text()))

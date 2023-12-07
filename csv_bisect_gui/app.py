@@ -1,9 +1,9 @@
-import csv
 import platform
 import tkinter as tk
 import tkinter.ttk as ttk
 from pathlib import Path
 from tkinter import filedialog
+from tkinter import messagebox
 
 from alternative_encodings import cp866i, viscii
 
@@ -22,6 +22,8 @@ class Window(tk.Tk):
 
     executable_path: Path | None
     csv_path: Path | None
+
+    raw_data: list[bytes] | None
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -99,16 +101,23 @@ class Window(tk.Tk):
             self.csv_path = None
 
         if self.csv_path and self.csv_path.is_file:
+            self.raw_data = None
             self.load_csv()
 
     def load_csv(self):
         if not self.csv_path:
             return
 
+        if not self.raw_data:
+            with open(self.csv_path, "rb") as file:
+                self.raw_data = file.readlines()
+
         encoding = self.combo_encodings.get()
-        with open(self.csv_path, "r", encoding=encoding, newline="") as csv_file:
-            csv_reader = csv.reader(csv_file)
-            self.bisect_tool.strings = list(csv_reader)
+        try:
+            decoded = [item.strip().decode(encoding) for item in self.raw_data]
+            self.bisect_tool.strings = decoded
+        except UnicodeDecodeError:
+            messagebox.showerror("ERROR", f"Failed to decode using {encoding} encoding")
 
     def backup_csv(self):
         pass  # TODO
