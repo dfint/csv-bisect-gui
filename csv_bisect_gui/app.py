@@ -28,15 +28,14 @@ class Window(tk.Tk):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.csv_backup_path = None
+
+        self.file_types = self.init_file_types()
         self.config(menu=self.create_main_menu())
 
         self.combo_encodings = self.init_combo_encodings()
 
         self.bisect_tool = BisectTool(self)
         self.bisect_tool.pack(fill=tk.BOTH, expand=True)
-
-        self.file_types = self.init_file_types()
 
     def init_combo_encodings(self):
         frame = tk.Frame(self)
@@ -57,15 +56,16 @@ class Window(tk.Tk):
 
     @staticmethod
     def init_file_types():
+        dwarfort = ("dwarfort", "dwarfort")
         file_types = [
             ("exe files", "*.exe"),
-            ("dwarfort", "dwarfort"),
+            dwarfort,
             ("csv files", "*.csv"),
             ("All files", "*.*"),
         ]
 
         if is_windows:
-            file_types.remove(("dwarfort", "dwarfort"))
+            file_types.remove(dwarfort)
 
         return file_types
 
