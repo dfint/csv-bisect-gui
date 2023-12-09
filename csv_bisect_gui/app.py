@@ -104,7 +104,7 @@ class Window(tk.Tk):
 
         if self.csv_path and self.csv_path.is_file:
             self.csv_backup_path = self.csv_path.with_suffix(".bac")
-            self.check_backup()
+            self.backup_csv()
 
             self.raw_data = None
             self.load_csv()
@@ -124,14 +124,22 @@ class Window(tk.Tk):
         except UnicodeDecodeError:
             messagebox.showerror("ERROR", f"Failed to decode using {encoding} encoding")
 
+    def backup_csv(self):
+        if self.csv_backup_path.exists() and self.csv_backup_path.read_bytes() == self.csv_path.read_bytes():
+            return
+
+        self.check_backup()
+
+        shutil.copyfile(self.csv_path, self.csv_backup_path)
+
+    def restore_backup(self):
+        shutil.copyfile(self.csv_backup_path, self.csv_path)
+
     def check_backup(self):
         """
         Check if the backup file exists. If it does, ask the user if they want to restore backup.
         """
         if not self.csv_backup_path.exists():
-            return
-
-        if self.csv_backup_path.read_bytes() == self.csv_path.read_bytes():
             return
 
         response = messagebox.askyesno(
@@ -141,10 +149,7 @@ class Window(tk.Tk):
         )
 
         if response == tk.YES:
-            shutil.copyfile(self.csv_backup_path, self.csv_path)
-
-    def backup_csv(self):
-        pass  # TODO
+            self.restore_backup()
 
 
 if __name__ == "__main__":
