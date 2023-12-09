@@ -131,6 +131,9 @@ class Window(tk.Tk):
         if not self.csv_backup_path.exists():
             return
 
+        if self.csv_backup_path.read_bytes() == self.csv_path.read_bytes():
+            return
+
         response = messagebox.askyesno(
             "BACKUP EXISTS",
             "Backup of the csv file is already exists.\n"
