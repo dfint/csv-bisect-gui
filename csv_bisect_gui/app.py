@@ -1,9 +1,9 @@
 import platform
+import shutil
 import tkinter as tk
 import tkinter.ttk as ttk
 from pathlib import Path
-from tkinter import filedialog
-from tkinter import messagebox
+from tkinter import filedialog, messagebox
 
 from alternative_encodings import cp866i, viscii
 
@@ -22,11 +22,13 @@ class Window(tk.Tk):
 
     executable_path: Path | None
     csv_path: Path | None
+    csv_backup_path: Path | None
 
     raw_data: list[bytes] | None
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.csv_backup_path = None
         self.config(menu=self.create_main_menu())
 
         self.combo_encodings = self.init_combo_encodings()
@@ -101,6 +103,9 @@ class Window(tk.Tk):
             self.csv_path = None
 
         if self.csv_path and self.csv_path.is_file:
+            self.csv_backup_path = self.csv_path.with_suffix(".bac")
+            self.check_backup()
+
             self.raw_data = None
             self.load_csv()
 
@@ -118,6 +123,22 @@ class Window(tk.Tk):
             self.bisect_tool.strings = decoded
         except UnicodeDecodeError:
             messagebox.showerror("ERROR", f"Failed to decode using {encoding} encoding")
+
+    def check_backup(self):
+        """
+        Check if the backup file exists. If it does, ask the user if they want to restore backup.
+        """
+        if not self.csv_backup_path.exists():
+            return
+
+        response = messagebox.askyesno(
+            "BACKUP EXISTS",
+            "Backup of the csv file is already exists.\n"
+            "Restore backup? (otherwise the backup file will be overwritten)",
+        )
+
+        if response == tk.YES:
+            shutil.copyfile(self.csv_backup_path, self.csv_path)
 
     def backup_csv(self):
         pass  # TODO

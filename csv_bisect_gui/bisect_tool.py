@@ -5,7 +5,7 @@ from functools import partial
 from itertools import islice
 from operator import itemgetter
 from tkinter import ttk
-from typing import Iterable, Generic, TypeVar
+from typing import Generic, Iterable, TypeVar
 
 from bidict import MutableBidict, bidict
 from tkinter_layout_helpers import grid_manager, pack_manager
