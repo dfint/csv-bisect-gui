@@ -9,5 +9,5 @@ poe run
 
 Run using poetry:
 ```
-poetry run python -m csv_bisect_gui.app
+poetry run app
 ```

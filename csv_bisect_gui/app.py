@@ -152,5 +152,9 @@ class Window(tk.Tk):
             self.restore_backup()
 
 
-if __name__ == "__main__":
+def main():
     Window().mainloop()
+
+
+if __name__ == "__main__":
+    main()
