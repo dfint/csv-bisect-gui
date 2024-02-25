@@ -6,6 +6,7 @@ from pathlib import Path
 from tkinter import filedialog, messagebox
 
 from alternative_encodings import cp866i, viscii
+from tkinter_layout_helpers import pack_manager
 
 from csv_bisect_gui.bisect_tool import BisectTool
 
@@ -16,13 +17,13 @@ is_windows = platform.system() == "Windows"
 
 
 class Window(tk.Tk):
-    bisect_tool: BisectTool
+    bisect_tool: BisectTool[str]
 
     file_types: list[tuple[str, str]]
 
     executable_path: Path | None
     csv_path: Path | None
-    csv_backup_path: Path | None
+    csv_backup_path: Path | None = None
 
     raw_data: list[bytes] | None
 
@@ -34,8 +35,14 @@ class Window(tk.Tk):
 
         self.combo_encodings = self.init_combo_encodings()
 
-        self.bisect_tool = BisectTool(self)
+        self.bisect_tool = BisectTool[str](self)
         self.bisect_tool.pack(fill=tk.BOTH, expand=True)
+
+        with pack_manager(self, side=tk.LEFT, expand=True, fill=tk.X, padx=1) as toolbar:
+            toolbar.pack_all(
+                ttk.Button(text="Write selection to csv", command=self.write_csv),
+                ttk.Button(text="Restore csv from backup", command=self.restore_backup),
+            )
 
     def init_combo_encodings(self):
         frame = tk.Frame(self)
@@ -124,6 +131,15 @@ class Window(tk.Tk):
         except UnicodeDecodeError:
             messagebox.showerror("ERROR", f"Failed to decode using {encoding} encoding")
 
+    def write_csv(self):
+        if not self.csv_path:
+            return
+
+        with open(self.csv_path, "wb") as file:
+            for node in self.bisect_tool.selected_nodes:
+                for line in self.raw_data[node.slice]:
+                    file.write(line)
+
     def backup_csv(self):
         if self.csv_backup_path.exists() and self.csv_backup_path.read_bytes() == self.csv_path.read_bytes():
             return
@@ -133,6 +149,9 @@ class Window(tk.Tk):
         shutil.copyfile(self.csv_path, self.csv_backup_path)
 
     def restore_backup(self):
+        if not self.csv_backup_path:
+            return
+
         shutil.copyfile(self.csv_backup_path, self.csv_path)
 
     def check_backup(self):

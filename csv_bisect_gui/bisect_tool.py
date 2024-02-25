@@ -49,8 +49,13 @@ class Node(Generic[T]):
             return f"[{self.start} : {self.end}] ({self.size} strings)"
 
     @property
+    def slice(self) -> slice:
+        return slice(self.start, self.end + 1)
+
+    @property
     def items(self) -> Iterable[T]:
-        return islice(self._all_items, self.start, self.end + 1)
+        s = self.slice
+        return islice(self._all_items, s.start, s.stop)
 
     @property
     def column_text(self) -> str:
