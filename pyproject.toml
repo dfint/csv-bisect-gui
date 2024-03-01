@@ -15,10 +15,10 @@ alternative-encodings = {version = "^0.1.0", source = "dfint"}
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.0.0"
 pytest-cov = "^4.1.0"
-hypothesis = "^6.97.4"
+hypothesis = "^6.98.15"
 black = "^24.1.1"
 isort = "^5.13.2"
-ruff = "^0.1.15"
+ruff = "^0.3.0"
 refurb = "^1.28.0"
 flake8 = "^7.0.0"
 
