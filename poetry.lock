@@ -2,12 +2,12 @@
 
 [[package]]
 name = "alternative-encodings"
-version = "0.1.0"
+version = "0.2.2"
 description = ""
 optional = false
 python-versions = ">=3.8,<4.0"
 files = [
-    {file = "alternative_encodings-0.1.0-py3-none-any.whl", hash = "sha256:c9a16dd7086f2f540b98b45b90b1ded0ad27334b4fe58445f01c75ed69aafff3"},
+    {file = "alternative_encodings-0.2.2-py3-none-any.whl", hash = "sha256:b9130474d3f2a6de3811c862671bb59433fc8d1140239bf44e723cc86a88b691"},
 ]
 
 [package.source]
@@ -542,4 +542,4 @@ files = [
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "88c1d514700a218374d35df486bc5b23f7667669757a058b0fcd753cdfff6aa5"
+content-hash = "05bc5d37f56de2873abcc6e24093f5a0abb99966e6d60d7204f6b1b9edd92548"
