@@ -60,6 +60,7 @@ class Window(tk.Tk):
         with pack_manager(self, side=tk.LEFT, expand=True, fill=tk.X, padx=1) as toolbar:
             toolbar.pack_all(
                 ttk.Button(text="Write selection to csv", command=self.write_csv),
+                ttk.Button(text="Exclude selection from csv", command=self.exclude_from_csv),
                 ttk.Button(text="Restore csv from backup", command=self.restore_backup),
             )
 
@@ -159,6 +160,29 @@ class Window(tk.Tk):
             for node in self.bisect_tool.selected_nodes:
                 for line in self.raw_data[node.slice]:
                     file.write(line)
+
+    def exclude_from_csv(self):
+        if not self.csv_path:
+            return
+
+        selection = list(self.bisect_tool.selected_nodes)
+        
+        if len(selection) > 1:
+            messagebox.showerror("ERROR", "Select one row")
+            return
+
+        node = selection[0]
+        selection_slice = node.slice
+        
+        before_selection = slice(0, selection_slice.start)
+        after_selection = slice(selection_slice.end, -1)
+
+        with open(self.csv_path, "wb") as file:
+            for line in self.raw_data[before_selection]:
+                file.write(line)
+
+            for line in self.raw_data[after_selection]:
+                file.write(line)
 
     def backup_csv(self):
         if self.csv_backup_path.exists() and self.csv_backup_path.read_bytes() == self.csv_path.read_bytes():
