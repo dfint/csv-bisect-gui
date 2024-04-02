@@ -123,6 +123,8 @@ class Window(tk.Tk):
         elif file_path.suffix == ".exe" or file_path.name == "dwarfort":
             self.executable_path = file_path
             self.csv_path = file_path.parent / "dfint_data" / "dfint_dictionary.csv"
+            if not self.csv_path.exists():
+                self.csv_path = file_path.parent / "dfint-data" / "dictionary.csv"
         else:
             self.executable_path = None
             self.csv_path = None
