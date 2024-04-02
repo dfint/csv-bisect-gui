@@ -5,13 +5,32 @@ import tkinter.ttk as ttk
 from pathlib import Path
 from tkinter import filedialog, messagebox
 
-from alternative_encodings import cp866i, viscii
+from alternative_encodings import cp859, cp866i, viscii
 from tkinter_layout_helpers import pack_manager
 
 from csv_bisect_gui.bisect_tool import BisectTool
 
-viscii.register()
+cp859.register()
 cp866i.register()
+viscii.register()
+
+
+encodings = [
+    "cp437",
+    "cp850",
+    "cp852",
+    "cp857",
+    "cp859",
+    "cp866",
+    "cp866i",
+    "cp866u",
+    "cp1251",
+    "latin3",
+    "latin9",
+    "viscii",
+    "utf-8",
+]
+
 
 is_windows = platform.system() == "Windows"
 
@@ -51,7 +70,6 @@ class Window(tk.Tk):
         label.pack(side=tk.LEFT)
 
         combo_encodings = ttk.Combobox(frame, state="readonly")
-        encodings = ["cp437", "cp1251", "cp850", "cp852", "cp857", "latin3", "latin9", "viscii", "utf-8"]
         combo_encodings.config(values=encodings)
         combo_encodings.pack(fill=tk.X, expand=True)
         combo_encodings.set(encodings[0])
