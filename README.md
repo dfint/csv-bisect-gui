@@ -11,3 +11,8 @@ Run using poetry:
 ```
 poetry run app
 ```
+
+## TODO:
+
+- [ ] save state (last selected file location, encoding)
+- [ ] run/kill the game
