@@ -2,6 +2,7 @@ import platform
 import shutil
 import tkinter as tk
 import tkinter.ttk as ttk
+import traceback
 from pathlib import Path
 from tkinter import filedialog, messagebox
 
@@ -213,6 +214,16 @@ class Window(tk.Tk):
 
         if response == tk.YES:
             self.restore_backup()
+
+    def report_callback_exception(self, exc, val, tb):
+        if issubclass(exc, KeyboardInterrupt):
+            self.quit()
+            return
+
+        super().report_callback_exception(exc, val, tb)
+
+        filename, line, *_ = traceback.extract_tb(tb).pop()
+        messagebox.showerror("Unhandled Exception", f"{exc.__name__}: {val}\n{filename}, line: {line}")
 
 
 def main():
