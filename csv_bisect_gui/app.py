@@ -176,7 +176,7 @@ class Window(tk.Tk):
         selection_slice = node.slice
         
         before_selection = slice(0, selection_slice.start)
-        after_selection = slice(selection_slice.end, -1)
+        after_selection = slice(selection_slice.stop, -1)
 
         with open(self.csv_path, "wb") as file:
             for line in self.raw_data[before_selection]:
