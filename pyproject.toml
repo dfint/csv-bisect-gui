@@ -42,3 +42,6 @@ run = "python -m csv_bisect_gui.app"
 
 [tool.poetry.scripts]
 app = "csv_bisect_gui.app:main"
+
+[tool.ruff]
+line-length = 120
