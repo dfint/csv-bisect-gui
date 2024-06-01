@@ -6,15 +6,12 @@ import traceback
 from pathlib import Path
 from tkinter import filedialog, messagebox
 
-from alternative_encodings import cp859, cp866i, viscii
+import alternative_encodings
 from tkinter_layout_helpers import pack_manager
 
 from csv_bisect_gui.bisect_tool import BisectTool
 
-cp859.register()
-cp866i.register()
-viscii.register()
-
+alternative_encodings.register_all()
 
 encodings = [
     "cp437",
@@ -28,10 +25,10 @@ encodings = [
     "cp1251",
     "latin3",
     "latin9",
+    "romaji",
     "viscii",
     "utf-8",
 ]
-
 
 is_windows = platform.system() == "Windows"
 
@@ -167,14 +164,14 @@ class Window(tk.Tk):
             return
 
         selection = list(self.bisect_tool.selected_nodes)
-        
+
         if len(selection) > 1:
             messagebox.showerror("ERROR", "Select one row")
             return
 
         node = selection[0]
         selection_slice = node.slice
-        
+
         before_selection = slice(0, selection_slice.start)
         after_selection = slice(selection_slice.stop, -1)
 
