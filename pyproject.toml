@@ -16,10 +16,7 @@ alternative-encodings = {version = "^0.3.1", source = "dfint"}
 pytest = "^8.3.2"
 pytest-cov = "^5.0.0"
 hypothesis = "^6.108.5"
-black = "^24.4.2"
-isort = "^5.13.2"
 ruff = "^0.5.5"
-refurb = "^2.0.0"
 flake8 = "^7.1.0"
 
 [[tool.poetry.source]]
@@ -30,12 +27,6 @@ priority = "explicit"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
-
-[tool.black]
-line-length = 120
-
-[tool.isort]
-profile = "black"
 
 [tool.poe.tasks]
 run = "python -m csv_bisect_gui.app"
