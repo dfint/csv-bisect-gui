@@ -31,7 +31,8 @@ class Node(Generic[T]):
             end = len(items) - 1
 
         self.end = end
-        assert self.start >= 0 and self.end < len(items)
+        assert self.start >= 0
+        assert self.end < len(items)
 
     @property
     def size(self) -> int:

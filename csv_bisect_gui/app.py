@@ -150,7 +150,7 @@ class Window(tk.Tk):
         except UnicodeDecodeError:
             messagebox.showerror("ERROR", f"Failed to decode using {encoding} encoding")
 
-    def write_csv(self):
+    def write_csv(self) -> None:
         if not self.csv_path:
             return
 
@@ -159,7 +159,7 @@ class Window(tk.Tk):
                 for line in self.raw_data[node.slice]:
                     file.write(line)
 
-    def exclude_from_csv(self):
+    def exclude_from_csv(self) -> None:
         if not self.csv_path:
             return
 
@@ -182,7 +182,7 @@ class Window(tk.Tk):
             for line in self.raw_data[after_selection]:
                 file.write(line)
 
-    def backup_csv(self):
+    def backup_csv(self) -> None:
         if self.csv_backup_path.exists() and self.csv_backup_path.read_bytes() == self.csv_path.read_bytes():
             return
 
@@ -190,13 +190,13 @@ class Window(tk.Tk):
 
         shutil.copyfile(self.csv_path, self.csv_backup_path)
 
-    def restore_backup(self):
+    def restore_backup(self) -> None:
         if not self.csv_backup_path:
             return
 
         shutil.copyfile(self.csv_backup_path, self.csv_path)
 
-    def check_backup(self):
+    def check_backup(self) -> None:
         """
         Check if the backup file exists. If it does, ask the user if they want to restore backup.
         """
@@ -212,7 +212,7 @@ class Window(tk.Tk):
         if response == tk.YES:
             self.restore_backup()
 
-    def report_callback_exception(self, exc, val, tb):
+    def report_callback_exception(self, exc, val, tb) -> None:  # noqa: ANN001
         if issubclass(exc, KeyboardInterrupt):
             self.quit()
             return

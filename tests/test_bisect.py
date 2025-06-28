@@ -9,7 +9,8 @@ from csv_bisect_gui.bisect_tool import Node
 def test_node(data):
     node = Node(data)
     assert node.size == len(data)
-    assert node.start == 0 and node.end == len(data) - 1
+    assert node.start == 0
+    assert node.end == len(data) - 1
     if len(data) == 0:
         assert node.tree_text == "[] (0 strings)"
         assert node.column_text == "<empty>"

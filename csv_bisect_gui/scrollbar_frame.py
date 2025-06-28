@@ -15,11 +15,11 @@ class ScrollbarFrame(tk.Frame, Generic[TWidget]):
         self,
         *args,
         widget_factory: Callable[..., TWidget],
-        widget_args: Mapping[str, Any] = None,
+        widget_args: Mapping[str, Any] | None = None,
         show_scrollbars: Literal["vertical", "horizontal", "both"] = tk.BOTH,
         scrollbar: Callable[..., tk.Scrollbar | ttk.Scrollbar] = ttk.Scrollbar,
         **kwargs,
-    ):
+    ) -> None:
         super().__init__(*args, **kwargs)
         self.grid_columnconfigure(0, weight=1)
         self.grid_rowconfigure(0, weight=1)
