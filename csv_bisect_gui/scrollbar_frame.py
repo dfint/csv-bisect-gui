@@ -1,6 +1,7 @@
 import tkinter as tk
+from collections.abc import Callable, Mapping
 from tkinter import ttk
-from typing import Any, Callable, Generic, Literal, Mapping, TypeVar
+from typing import Any, Generic, Literal, TypeVar
 
 TWidget = TypeVar("TWidget")
 
@@ -15,9 +16,9 @@ class ScrollbarFrame(tk.Frame, Generic[TWidget]):
         *args,
         widget_factory: Callable[..., TWidget],
         widget_args: Mapping[str, Any] = None,
-        show_scrollbars: Literal["vertical"] | Literal["horizontal"] | Literal["both"] = tk.BOTH,
+        show_scrollbars: Literal["vertical", "horizontal", "both"] = tk.BOTH,
         scrollbar: Callable[..., tk.Scrollbar | ttk.Scrollbar] = ttk.Scrollbar,
-        **kwargs
+        **kwargs,
     ):
         super().__init__(*args, **kwargs)
         self.grid_columnconfigure(0, weight=1)

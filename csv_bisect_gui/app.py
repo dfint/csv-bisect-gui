@@ -1,10 +1,10 @@
 import platform
 import shutil
 import tkinter as tk
-import tkinter.ttk as ttk
 import traceback
 from pathlib import Path
-from tkinter import filedialog, messagebox
+from tkinter import filedialog, messagebox, ttk
+from typing import Any
 
 import alternative_encodings
 from tkinter_layout_helpers import pack_manager
@@ -44,7 +44,7 @@ class Window(tk.Tk):
 
     raw_data: list[bytes] | None
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, *args: list[Any], **kwargs: dict[str, Any]) -> None:
         super().__init__(*args, **kwargs)
 
         self.file_types = self.init_file_types()
@@ -62,7 +62,7 @@ class Window(tk.Tk):
                 ttk.Button(text="Restore csv from backup", command=self.restore_backup),
             )
 
-    def init_combo_encodings(self):
+    def init_combo_encodings(self) -> ttk.Combobox:
         frame = tk.Frame(self)
 
         label = tk.Label(frame, text="csv encoding:")
@@ -79,7 +79,7 @@ class Window(tk.Tk):
         return combo_encodings
 
     @staticmethod
-    def init_file_types():
+    def init_file_types() -> list[tuple[str, str]]:
         dwarfort = ("dwarfort", "dwarfort")
         file_types = [
             ("exe files", "*.exe"),
@@ -93,7 +93,7 @@ class Window(tk.Tk):
 
         return file_types
 
-    def create_main_menu(self):
+    def create_main_menu(self) -> tk.Menu:
         file_menu = tk.Menu(tearoff=False)
         file_menu.add_command(label="Open", command=self.select_file)
         file_menu.add_separator()
@@ -103,7 +103,7 @@ class Window(tk.Tk):
         main_menu.add_cascade(label="File", menu=file_menu)
         return main_menu
 
-    def select_file(self):
+    def select_file(self) -> None:
         file_path = filedialog.askopenfilename(
             title="Select an executable or a csv file",
             filetypes=self.file_types,
@@ -114,7 +114,7 @@ class Window(tk.Tk):
 
         self.process_selected_file(Path(file_path))
 
-    def process_selected_file(self, file_path: Path):
+    def process_selected_file(self, file_path: Path) -> None:
         file_path = Path(file_path)
         if file_path.suffix == ".csv":
             self.executable_path = None
@@ -135,7 +135,7 @@ class Window(tk.Tk):
             self.raw_data = None
             self.load_csv()
 
-    def load_csv(self):
+    def load_csv(self) -> None:
         if not self.csv_path:
             return
 
@@ -223,7 +223,7 @@ class Window(tk.Tk):
         messagebox.showerror("Unhandled Exception", f"{exc.__name__}: {val}\n{filename}, line: {line}")
 
 
-def main():
+def main() -> None:
     Window().mainloop()
 
 
