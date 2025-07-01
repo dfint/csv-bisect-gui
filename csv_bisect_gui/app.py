@@ -156,8 +156,7 @@ class Window(tk.Tk):
 
         with open(self.csv_path, "wb") as file:
             for node in self.bisect_tool.selected_nodes:
-                for line in self.raw_data[node.slice]:
-                    file.write(line)
+                file.writelines(self.raw_data[node.slice])
 
     def exclude_from_csv(self) -> None:
         if not self.csv_path:
@@ -176,11 +175,9 @@ class Window(tk.Tk):
         after_selection = slice(selection_slice.stop, -1)
 
         with open(self.csv_path, "wb") as file:
-            for line in self.raw_data[before_selection]:
-                file.write(line)
+            file.writelines(self.raw_data[before_selection])
 
-            for line in self.raw_data[after_selection]:
-                file.write(line)
+            file.writelines(self.raw_data[after_selection])
 
     def backup_csv(self) -> None:
         if self.csv_backup_path.exists() and self.csv_backup_path.read_bytes() == self.csv_path.read_bytes():
