@@ -1,37 +1,44 @@
-[tool.poetry]
+[project]
 name = "csv-bisect-gui"
 version = "0.1.0"
 description = ""
-authors = ["insolor <insolor@gmail.com>"]
-license = "MIT"
+authors = [{ name = "insolor", email = "insolor@gmail.com" }]
+requires-python = ">=3.10"
 readme = "README.md"
+license = "MIT"
+dependencies = [
+    "bidict>=0.23.1,<0.24",
+    "tkinter-layout-helpers>=0.3.0,<0.4",
+    "alternative-encodings>=0.3.1,<0.4",
+]
 
-[tool.poetry.dependencies]
-python = "^3.10"
-bidict = "^0.23.1"
-tkinter-layout-helpers = "^0.3.0"
-alternative-encodings = {version = "^0.3.1", source = "dfint"}
+[project.scripts]
+app = "csv_bisect_gui.app:main"
 
-[tool.poetry.group.dev.dependencies]
-pytest = "^8.4.1"
-pytest-cov = "^6.2.1"
-hypothesis = "^6.136.6"
-ruff = "^0.12.7"
+[dependency-groups]
+dev = [
+    "pytest>=8.4.1,<9",
+    "pytest-cov>=6.2.1,<7",
+    "hypothesis>=6.136.6,<7",
+    "ruff>=0.12.7,<0.13",
+]
 
-[[tool.poetry.source]]
+[tool.uv]
+
+[[tool.uv.index]]
 name = "dfint"
 url = "https://dfint.github.io/pypi-index/"
-priority = "explicit"
+explicit = true
+
+[tool.uv.sources]
+alternative-encodings = { index = "dfint" }
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
 [tool.poe.tasks]
 run = "python -m csv_bisect_gui.app"
-
-[tool.poetry.scripts]
-app = "csv_bisect_gui.app:main"
 
 [tool.ruff]
 target-version = "py310"
