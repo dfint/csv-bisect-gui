@@ -127,7 +127,7 @@ dev = [
 requires-dist = [
     { name = "alternative-encodings", specifier = ">=0.3.1,<0.4", index = "https://dfint.github.io/pypi-index/" },
     { name = "bidict", specifier = ">=0.23.1,<0.24" },
-    { name = "tkinter-layout-helpers", specifier = ">=0.3.0,<0.4" },
+    { name = "tkinter-layout-helpers", specifier = ">=0.4.0,<0.5" },
 ]
 
 [package.metadata.requires-dev]
@@ -340,11 +340,14 @@ wheels = [
 
 [[package]]
 name = "tkinter-layout-helpers"
-version = "0.3.0"
+version = "0.4.0"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/63/78/ce833a422be823f833091a8b8f32fb0251d228c428314ea28cb6dfb60a2a/tkinter_layout_helpers-0.3.0.tar.gz", hash = "sha256:d7ddb6642c56e15f4b443688db15efd82069856fc76af2df468c45bd27f12910", size = 3875, upload-time = "2023-06-03T11:02:43.828Z" }
+dependencies = [
+    { name = "typing-extensions" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/b7/ed/ae46900ed5d838c9a462fdf0b9c0e994acd133588d11f2f9cc9f7ce0c1f4/tkinter_layout_helpers-0.4.0.tar.gz", hash = "sha256:45d2ca1eb4b0bdd938aa7ebae39d504bfae1e25155f42d3616f4c0bee4a02043", size = 45907, upload-time = "2025-08-02T16:13:10.756Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/fc/91/41fb9f49d1b9e5bf3ffdfe5c50652d3080d2851c6989ddb06289b21954dc/tkinter_layout_helpers-0.3.0-py3-none-any.whl", hash = "sha256:1b38f6b7ee6cf2953f87f1963536b8bc20dbcff237c3020d5325f1811af4cec9", size = 5315, upload-time = "2023-06-03T11:02:42.104Z" },
+    { url = "https://files.pythonhosted.org/packages/31/60/341937466e81772ae1fcbf52093691fc1595d62c1b1152deaf882739c41f/tkinter_layout_helpers-0.4.0-py3-none-any.whl", hash = "sha256:9568ae138475dcb6d644bfb1a662d87e021888f41cebd934fffa9e9e61e12d1b", size = 6922, upload-time = "2025-08-02T16:13:09.655Z" },
 ]
 
 [[package]]
@@ -354,6 +357,15 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/c0/3f/d7af728f075fb08564c5949a9c95e44352e23dee646869fa104a3b2060a3/tomli-2.0.1.tar.gz", hash = "sha256:de526c12914f0c550d15924c62d72abc48d6fe7364aa87328337a31007fe8a4f", size = 15164, upload-time = "2022-02-08T10:54:04.006Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/97/75/10a9ebee3fd790d20926a90a2547f0bf78f371b2f13aa822c759680ca7b9/tomli-2.0.1-py3-none-any.whl", hash = "sha256:939de3e7a6161af0c887ef91b7d41a53e7c5a1ca976325f429cb46ea9bc30ecc", size = 12757, upload-time = "2022-02-08T10:54:02.017Z" },
+]
+
+[[package]]
+name = "typing-extensions"
+version = "4.14.1"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/98/5a/da40306b885cc8c09109dc2e1abd358d5684b1425678151cdaed4731c822/typing_extensions-4.14.1.tar.gz", hash = "sha256:38b39f4aeeab64884ce9f74c94263ef78f3c22467c8724005483154c26648d36", size = 107673, upload-time = "2025-07-04T13:28:34.16Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/b5/00/d631e67a838026495268c2f6884f3711a15a9a2a96cd244fdaea53b823fb/typing_extensions-4.14.1-py3-none-any.whl", hash = "sha256:d1e1e3b58374dc93031d6eda2420a48ea44a36c2b4766a4fdeb3710755731d76", size = 43906, upload-time = "2025-07-04T13:28:32.743Z" },
 ]
 
 [[package]]

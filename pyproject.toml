@@ -8,7 +8,7 @@ readme = "README.md"
 license = "MIT"
 dependencies = [
     "bidict>=0.23.1,<0.24",
-    "tkinter-layout-helpers>=0.3.0,<0.4",
+    "tkinter-layout-helpers>=0.4.0,<0.5",
     "alternative-encodings>=0.3.1,<0.4",
 ]
 

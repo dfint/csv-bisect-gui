@@ -99,9 +99,13 @@ class BisectTool(tk.Frame, Generic[T]):
             self._nodes_by_item_ids = bidict()
             self.strings = strings
 
-            grid.new_row().add(scrollbar_frame).configure(weight=1)
+            with grid.new_row() as row:
+                row.add(scrollbar_frame).configure(weight=1)
 
-            with pack_manager(tk.Frame(), side=tk.LEFT, expand=True, fill=tk.X, padx=1) as toolbar:
+            with (
+                grid.new_row() as row,
+                pack_manager(tk.Frame(), side=tk.LEFT, expand=True, fill=tk.X, padx=1) as toolbar,
+            ):
                 toolbar.pack_all(
                     ttk.Button(text="Split", command=self.split_selected_node),
                     ttk.Button(text="Mark as bad", command=partial(self.mark_selected_node, background="orange")),
@@ -109,7 +113,7 @@ class BisectTool(tk.Frame, Generic[T]):
                     ttk.Button(text="Clear mark", command=partial(self.mark_selected_node, background="white")),
                 )
 
-                grid.new_row().add(toolbar.parent)
+                row.add(toolbar.parent)
 
             grid.columnconfigure(0, weight=1)
 
